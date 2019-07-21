@@ -1,10 +1,10 @@
-# node-twitter-api #
+# node-twitter-client #
 
 Simple module for using Twitter's API in Node.js
 
 ## Installation ##
 
-`npm install node-twitter-api`
+`npm install node-twitter-client`
 
 ## Usage ##
 
