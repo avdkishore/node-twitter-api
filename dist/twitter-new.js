@@ -42,7 +42,7 @@ function () {
     this.consumerSecret = consumerSecret;
     this.x_auth_access_type = x_auth_access_type;
     this.callback = callback;
-    this.oa = new _oauth.default.OAuth('https://twitter.com/oauth/request_token', 'https://twitter.com/oauth/access_token', this.consumerKey, this.consumerSecret, '1.0A', this.callback, 'HMAC-SHA1'); // this.returnResponse = this.returnResponse.bind(this);
+    this.oa = new _oauth.default.OAuth('https://twitter.com/oauth/request_token', 'https://twitter.com/oauth/access_token', this.consumerKey, this.consumerSecret, '1.0A', this.callback, 'HMAC-SHA1');
   }
 
   _createClass(Twitter, [{
@@ -67,44 +67,73 @@ function () {
     }
   }, {
     key: "response",
-    value: function response(callback, promiseHandler, success, ...rest) {
+    value: function response({
+      callback,
+      promiseHandler,
+      success,
+      error,
+      ...rest
+    }) {
       const isCallback = this.checkIfCallbackIsSent(callback);
-      return isCallback ? success ? callback(null, ...rest) : callback(...rest) : promiseHandler(...rest);
+      return isCallback ? success ? callback(null, { ...rest
+      }) : callback(error) : success ? promiseHandler({ ...rest
+      }) : promiseHandler(error);
     }
   }, {
     key: "getRequestToken",
     value: function getRequestToken(callback) {
-      const isCallback = typeof callback === 'function';
       return new Promise((resolve, reject) => {
         return this.oa.getOAuthRequestToken({
           x_auth_access_type: this.x_auth_access_type
         }, (error, oauthToken, oauthTokenSecret, results) => {
           if (error) {
-            return this.response(callback, reject, false, error);
+            return this.response({
+              callback,
+              promiseHandler: reject,
+              success: false,
+              error
+            });
           }
 
-          return this.response(callback, resolve, true, oauthToken, oauthTokenSecret, results);
+          return this.response({
+            callback,
+            promiseHandler: resolve,
+            success: true,
+            oauthToken,
+            oauthTokenSecret,
+            results
+          });
         });
       });
     }
   }, {
     key: "getAccessToken",
     value: function getAccessToken(requestToken, requestTokenSecret, oauth_verifier, callback) {
-      const isCallback = typeof callback === 'function';
       return new Promise((resolve, reject) => {
         return this.oa.getOAuthAccessToken(requestToken, requestTokenSecret, oauth_verifier, (error, oauthAccessToken, oauthAccessTokenSecret, results) => {
           if (error) {
-            return this.response(callback, reject, false, error);
+            return this.response({
+              callback,
+              promiseHandler: reject,
+              success: false,
+              error
+            });
           }
 
-          return this.response(callback, resolve, true, oauthAccessToken, oauthAccessTokenSecret, results);
+          return this.response({
+            callback,
+            promiseHandler: resolve,
+            success: true,
+            oauthAccessToken,
+            oauthAccessTokenSecret,
+            results
+          });
         });
       });
     }
   }, {
     key: "verifyCredentials",
     value: function verifyCredentials(accessToken, accessTokenSecret, params, callback) {
-      const isCallback = typeof callback === 'function';
       let url = `${baseURL}account/verify_credentials.json`;
 
       if (typeof params == 'function') {
@@ -118,14 +147,30 @@ function () {
       return new Promise((resolve, reject) => {
         return this.oa.get(url, accessToken, accessTokenSecret, (error, data, response) => {
           if (error) {
-            return this.response(callback, reject, false, error);
+            return this.response({
+              callback,
+              promiseHandler: reject,
+              success: false,
+              error
+            });
           }
 
           try {
             const parsedData = JSON.parse(data);
-            return this.response(callback, resolve, true, parsedData, response);
+            return this.response({
+              callback,
+              promiseHandler: resolve,
+              success: true,
+              data: parsedData,
+              response
+            });
           } catch (e) {
-            return this.response(callback, reject, false, e, data, response);
+            return this.response({
+              callback,
+              promiseHandler: reject,
+              sucess: false,
+              error: e
+            });
           }
         });
       });
