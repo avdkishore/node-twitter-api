@@ -116,7 +116,7 @@ function () {
       }
 
       return new Promise((resolve, reject) => {
-        return this.oa.get(url, accessToken, accessTokenSecret, function (error, data, response) {
+        return this.oa.get(url, accessToken, accessTokenSecret, (error, data, response) => {
           if (error) {
             return this.response(callback, reject, false, error);
           }
