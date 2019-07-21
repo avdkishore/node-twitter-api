@@ -23,11 +23,13 @@
 		"request": "*"
 	},
 	"engines": {
-		"node": ">=0.4.0"
+		"node": ">=8",
+    "npm": ">=5"
 	},
 	"main": "dist/index",
 	"scripts": {
-		"build": "babel src -d dist"
+		"build": "babel src -d dist",
+		"prepare": "yarn build"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.5.5",
@@ -36,5 +38,8 @@
 		"@babel/plugin-transform-classes": "^7.5.5",
 		"@babel/preset-env": "^7.5.5",
 		"@babel/register": "^7.5.5"
-	}
+	},
+	"files": [
+		"dist"
+	]
 }
