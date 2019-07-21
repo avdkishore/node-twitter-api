@@ -4,7 +4,9 @@ Simple module for using Twitter's API in Node.js
 
 ## Installation ##
 
-`npm install node-twitter-client`
+With npm: `npm install node-twitter-client`
+
+With yarn: `yarn add node-twitter-client`
 
 ## Usage ##
 
