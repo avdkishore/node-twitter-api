@@ -2,7 +2,12 @@
 	"name": "node-twitter-api",
 	"version": "1.8.0",
 	"description": "Simple module for using Twitter's API in node.js",
-	"keywords": ["twitter", "oauth", "rest", "streaming"],
+	"keywords": [
+		"twitter",
+		"oauth",
+		"rest",
+		"streaming"
+	],
 	"homepage": "https://github.com/reneraab/node-twitter-api",
 	"author": "René Raab",
 	"licenses": {
@@ -20,5 +25,16 @@
 	"engines": {
 		"node": ">=0.4.0"
 	},
-	"main": "./twitter"
+	"main": "src/index",
+	"scripts": {
+		"build": "babel src -d dist"
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.5.5",
+		"@babel/core": "^7.5.5",
+		"@babel/node": "^7.5.5",
+		"@babel/plugin-transform-classes": "^7.5.5",
+		"@babel/preset-env": "^7.5.5",
+		"@babel/register": "^7.5.5"
+	}
 }
