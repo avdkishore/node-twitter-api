@@ -40,10 +40,10 @@ class Twitter {
     return `${authURL}${requestToken}${extraArgs}`;
   }
 
-  response(callback, promiseHandler, ...rest) {
+  response(callback, promiseHandler, success, ...rest) {
     const isCallback = this.checkIfCallbackIsSent(callback);
 
-    return isCallback ? callback(...rest) : promiseHandler(...rest);
+    return isCallback ? (success ? callback(null, ...rest) : callback(...rest)) : promiseHandler(...rest);
   }
 
   getRequestToken(callback) {
@@ -52,10 +52,10 @@ class Twitter {
     return new Promise((resolve, reject) => {
       return this.oa.getOAuthRequestToken({ x_auth_access_type: this.x_auth_access_type }, (error, oauthToken, oauthTokenSecret, results) => {
         if (error) {
-          return this.response(callback, reject, error);
+          return this.response(callback, reject, false, error);
         } 
 
-        return this.response(callback, resolve, oauthToken, oauthTokenSecret, results);
+        return this.response(callback, resolve, true, oauthToken, oauthTokenSecret, results);
       });
     });
   }
@@ -66,10 +66,10 @@ class Twitter {
     return new Promise((resolve, reject) => {
       return this.oa.getOAuthAccessToken(requestToken, requestTokenSecret, oauth_verifier, (error, oauthAccessToken, oauthAccessTokenSecret, results) => {
         if (error) {
-          return this.response(callback, reject, error);
+          return this.response(callback, reject, false, error);
         }
 
-        return this.response(callback, resolve, oauthAccessToken, oauthAccessTokenSecret, results);
+        return this.response(callback, resolve, true, oauthAccessToken, oauthAccessTokenSecret, results);
       });
     });
   }
@@ -89,16 +89,16 @@ class Twitter {
     return new Promise((resolve, reject) => {
       return this.oa.get(url, accessToken, accessTokenSecret, function(error, data, response) {
         if (error) {
-          return this.response(callback, reject, error);
+          return this.response(callback, reject, false, error);
         }
         
         try {
           const parsedData = JSON.parse(data);
 
-          return this.response(callback, resolve, parsedData, response);
+          return this.response(callback, resolve, true, parsedData, response);
         } catch (e) {
         
-          return this.response(callback, reject, e, data, response);
+          return this.response(callback, reject, false, e, data, response);
         }
       });
     })
