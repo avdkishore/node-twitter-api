@@ -1,1 +1,1 @@
-module.exports = require('./twitter-new');
+module.exports = require('./twitter-promise');

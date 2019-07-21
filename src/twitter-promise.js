@@ -53,7 +53,7 @@ class Twitter {
           return this.response({ callback, promiseHandler: reject, success: false, error });
         }
 
-        return this.response({ callback, promiseHandler: resolve, success: true, oauthToken, oauthTokenSecret, results });
+        return this.response({ callback, promiseHandler: resolve, success: true, requestToken: oauthToken, requestTokenSecret: oauthTokenSecret, results });
       });
     });
   }
@@ -65,7 +65,7 @@ class Twitter {
           return this.response({ callback, promiseHandler: reject, success: false, error });
         }
 
-        return this.response({ callback, promiseHandler: resolve, success: true, oauthAccessToken, oauthAccessTokenSecret, results });
+        return this.response({ callback, promiseHandler: resolve, success: true, accessToken: oauthAccessToken, accessTokenSecret: oauthAccessTokenSecret, results });
       });
     });
   }
