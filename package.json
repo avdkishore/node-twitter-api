@@ -9,7 +9,7 @@
 		"streaming"
 	],
 	"homepage": "https://github.com/avdkishore/node-twitter-api",
-	"author": "Kishore<avdkishore@gmail.com>",
+	"author": "Kishore <avdkishore@gmail.com>",
 	"licenses": {
 		"type": "MIT",
 		"url": "https://raw.github.com/avdkishore/node-twitter-api/master/LICENSE"
