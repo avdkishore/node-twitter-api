@@ -75,7 +75,7 @@ function () {
     key: "getRequestToken",
     value: function getRequestToken(callback) {
       const isCallback = typeof callback === 'function';
-      return new Pomise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         return this.oa.getOAuthRequestToken({
           x_auth_access_type: this.x_auth_access_type
         }, (error, oauthToken, oauthTokenSecret, results) => {
