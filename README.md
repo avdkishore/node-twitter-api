@@ -13,7 +13,7 @@ With yarn: `yarn add node-twitter-client`
 ### Step 1: Initialization ###
 
 ```javascript
-const twitterAPI = require('node-twitter-api');
+const twitterAPI = require('node-twitter-client');
 const twitter = new twitterAPI({
   consumerKey: 'your consumer Key',
   consumerSecret: 'your consumer secret',
