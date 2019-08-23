@@ -1,6 +1,6 @@
 {
 	"name": "node-twitter-client",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Node JS wrapper for twitter APIs",
 	"keywords": [
 		"twitter",
@@ -10,10 +10,10 @@
 	],
 	"homepage": "https://github.com/avdkishore/node-twitter-client",
 	"author": "Kishore <avdkishore@gmail.com>",
-	"licenses": {
+	"licenses": [{
 		"type": "MIT",
 		"url": "https://raw.github.com/avdkishore/node-twitter-client/master/LICENSE"
-	},
+	}],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/avdkishore/node-twitter-client.git"
